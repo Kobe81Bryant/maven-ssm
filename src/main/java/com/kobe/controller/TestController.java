@@ -1,4 +1,4 @@
-package com.controller;
+package com.kobe.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
