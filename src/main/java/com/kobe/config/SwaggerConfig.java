@@ -24,7 +24,7 @@ public class SwaggerConfig {
                 .apiInfo(getApiInfo())
                 .select()  // 选择那些路径和api会生成document
                     //.apis(RequestHandlerSelectors.any()) // 对所有api进行监控
-                    .apis(RequestHandlerSelectors.basePackage("com.controller"))
+                    .apis(RequestHandlerSelectors.basePackage("com.kobe.controller"))
                     .paths(PathSelectors.any()) // 对所有路径进行监
                 .build();
     }

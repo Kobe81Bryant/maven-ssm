@@ -45,6 +45,6 @@
 	<!-- 切面 -->
 	<aop:config>
 		<aop:advisor advice-ref="txAdvice"
-			pointcut="execution(* com.service..*.*(..))" />
+			pointcut="execution(* com.kobe.service..*.*(..))" />
 	</aop:config>
 </beans>

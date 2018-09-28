@@ -17,7 +17,7 @@
     <!-- 加载配置文件 -->
     <context:property-placeholder location="classpath:conf/resource.properties"/>
     <!-- 配置扫描包位置 -->
-    <context:component-scan base-package="com.controller"/>
+    <context:component-scan base-package="com.kobe.controller"/>
     <!-- 配置注解扫描 -->
     <mvc:annotation-driven/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -41,7 +41,7 @@
     </bean>
 
     <!-- 引入swagger相关 -->
-    <bean class="com.config.SwaggerConfig"/>
+    <bean class="com.kobe.config.SwaggerConfig"/>
     <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
     <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration"
