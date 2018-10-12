@@ -30,10 +30,6 @@ public class TestController {
 			}
 		});
         thread.start();
-//        for (int i = 0; i < 2147483647; i++) {
-//			System.out.println("线程名称"+Thread.currentThread().getName()+"标识"+i);
-//
-//		}
         return map;
     }
 }
