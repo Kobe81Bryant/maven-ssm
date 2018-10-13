@@ -14,6 +14,7 @@ import java.util.Map;
 @RequestMapping("test")
 @Api(description="asd测试")
 public class TestController {
+	@SuppressWarnings("rawtypes")
 	@GetMapping("/test")
     @ResponseBody
     @ApiOperation(value = "swarger第一个测试方法")
