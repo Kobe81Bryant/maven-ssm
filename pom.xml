@@ -498,6 +498,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <!--生成war包时排除css和js文件-->
                 <configuration>
                     <warSourceExcludes>js/**/*.js,css/**/*.css</warSourceExcludes>
                 </configuration>
@@ -524,9 +525,9 @@
                     <!-- 在指定的列号后插入新行 -->
                     <linebreakpos>-1</linebreakpos>
                     <!-- 源目录，即需压缩的根目录 -->
-                    <!--<sourceDirectory>src/main/webapp</sourceDirectory>-->
-                    <!-- 目标目录，即需压缩文件存放的目录 -->
-                    <!--<outputDirectory>target</outputDirectory>-->
+                    <sourceDirectory>src/main/webapp</sourceDirectory>
+                    <!-- 目标目录，即压缩文件输出的根目录 -->
+                    <outputDirectory>target</outputDirectory>
                     <includes>
                         <include>js/**/*.js</include>
                         <include>css/**/*.css</include>
