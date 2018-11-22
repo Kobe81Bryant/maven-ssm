@@ -5,7 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -23,8 +24,9 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(getApiInfo())
                 .select()  // 选择那些路径和api会生成document
-                    //.apis(RequestHandlerSelectors.any()) // 对所有api进行监控
                     .apis(RequestHandlerSelectors.basePackage("com.kobe.controller"))
+                    .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+                    .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                     .paths(PathSelectors.any()) // 对所有路径进行监
                 .build();
     }
@@ -36,10 +38,5 @@ public class SwaggerConfig {
                 .version("1.1")
                 .build();
         return apiInfo;
-    }
-
-    @Bean
-    public RequestMappingInfoHandlerMapping requestMapping(){
-        return new RequestMappingHandlerMapping();
     }
 }

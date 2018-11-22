@@ -48,7 +48,6 @@
         <fastjson.version>1.2.47</fastjson.version>
         <sqljdbc4.version>4.0</sqljdbc4.version>
         <swagger.version>2.6.1</swagger.version>
-        <swagger-springmvc.version>1.0.2</swagger-springmvc.version>
     </properties>
 
     <dependencyManagement>
@@ -266,11 +265,6 @@
             </dependency>
             <!-- swagger -->
             <dependency>
-                <groupId>com.mangofactory</groupId>
-                <artifactId>swagger-springmvc</artifactId>
-                <version>${swagger-springmvc.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
                 <version>${swagger.version}</version>
@@ -428,10 +422,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mangofactory</groupId>
-            <artifactId>swagger-springmvc</artifactId>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>

@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("test")
-@Api(description="asd测试")
+@Api(description="asdasd")
 public class TestController {
 	@SuppressWarnings("rawtypes")
 	@GetMapping("/test")
@@ -21,16 +21,16 @@ public class TestController {
     public Map test1(){
         Map<String,Object>map=new HashMap<>();
         map.put("a",1);
-        Thread thread=new Thread(new Runnable() {
-			@Override
-			public void run() {
-				for (int i = 0; i < 2147483647; i++) {
-					System.out.println("线程名称"+Thread.currentThread().getName()+"标识"+i);
-
-				}
-			}
-		});
-        thread.start();
+//        Thread thread=new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				for (int i = 0; i < 2147483647; i++) {
+//					System.out.println("线程名称"+Thread.currentThread().getName()+"标识"+i);
+//
+//				}
+//			}
+//		});
+//        thread.start();
         return map;
     }
 }
