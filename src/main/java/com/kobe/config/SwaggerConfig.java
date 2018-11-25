@@ -23,11 +23,11 @@ public class SwaggerConfig {
     public Docket userApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(getApiInfo())
-                .select()  // 选择那些路径和api会生成document
+                .select()
                     .apis(RequestHandlerSelectors.basePackage("com.kobe.controller"))
                     .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                     .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-                    .paths(PathSelectors.any()) // 对所有路径进行监
+                    .paths(PathSelectors.any())
                 .build();
     }
 
@@ -35,7 +35,7 @@ public class SwaggerConfig {
         ApiInfo apiInfo = new ApiInfoBuilder()
                 .title("Kobe项目模板")
                 .description("描述信息")
-                .version("1.1")
+                .version("1.0")
                 .build();
         return apiInfo;
     }

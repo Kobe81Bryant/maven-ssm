@@ -364,7 +364,7 @@
             <artifactId>jsp-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- json相关 -->
+        <!-- MVC依赖json相关 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -423,6 +423,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <!--swagger相关-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -481,7 +482,7 @@
                 <version>2.2</version>
                 <configuration>
                     <path>/</path>
-                    <port>80</port>
+                    <port>8080</port>
                 </configuration>
             </plugin>
             <plugin>
@@ -492,8 +493,8 @@
                     <warSourceExcludes>/**/*.js,/**/*.css</warSourceExcludes>
                 </configuration>
             </plugin>
+            <!-- YUI Compressor Maven压缩插件 -->
             <plugin>
-                <!-- YUI Compressor Maven压缩插件 -->
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>yuicompressor-maven-plugin</artifactId>
                 <version>1.5.1</version>
