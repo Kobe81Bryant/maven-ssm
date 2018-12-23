@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kobe.mapper.OrdersMapper" >
+  <resultMap id="BaseResultMap" type="com.kobe.entity.Orders" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="out_stack_time" property="outStackTime" jdbcType="TIMESTAMP" />
+    <result column="should_pay" property="shouldPay" jdbcType="DECIMAL" />
+    <result column="comission" property="comission" jdbcType="DECIMAL" />
+    <result column="comission_pin" property="comissionPin" jdbcType="VARCHAR" />
+    <result column="pin" property="pin" jdbcType="VARCHAR" />
+    <result column="sku_count" property="skuCount" jdbcType="INTEGER" />
+    <result column="order_type" property="orderType" jdbcType="TINYINT" />
+    <result column="order_status" property="orderStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_id, submit_time, pay_time, out_stack_time, should_pay, comission, comission_pin, 
+    pin, sku_count, order_type, order_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kobe.entity.OrdersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from orders
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kobe.entity.OrdersExample" >
+    delete from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kobe.entity.Orders" >
+    insert into orders (id, order_id, submit_time, 
+      pay_time, out_stack_time, should_pay, 
+      comission, comission_pin, pin, 
+      sku_count, order_type, order_status
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{submitTime,jdbcType=TIMESTAMP}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{outStackTime,jdbcType=TIMESTAMP}, #{shouldPay,jdbcType=DECIMAL}, 
+      #{comission,jdbcType=DECIMAL}, #{comissionPin,jdbcType=VARCHAR}, #{pin,jdbcType=VARCHAR}, 
+      #{skuCount,jdbcType=INTEGER}, #{orderType,jdbcType=TINYINT}, #{orderStatus,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.kobe.entity.Orders" >
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="submitTime != null" >
+        submit_time,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="outStackTime != null" >
+        out_stack_time,
+      </if>
+      <if test="shouldPay != null" >
+        should_pay,
+      </if>
+      <if test="comission != null" >
+        comission,
+      </if>
+      <if test="comissionPin != null" >
+        comission_pin,
+      </if>
+      <if test="pin != null" >
+        pin,
+      </if>
+      <if test="skuCount != null" >
+        sku_count,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outStackTime != null" >
+        #{outStackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shouldPay != null" >
+        #{shouldPay,jdbcType=DECIMAL},
+      </if>
+      <if test="comission != null" >
+        #{comission,jdbcType=DECIMAL},
+      </if>
+      <if test="comissionPin != null" >
+        #{comissionPin,jdbcType=VARCHAR},
+      </if>
+      <if test="pin != null" >
+        #{pin,jdbcType=VARCHAR},
+      </if>
+      <if test="skuCount != null" >
+        #{skuCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=TINYINT},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kobe.entity.OrdersExample" resultType="java.lang.Integer" >
+    select count(*) from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update orders
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.submitTime != null" >
+        submit_time = #{record.submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.outStackTime != null" >
+        out_stack_time = #{record.outStackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shouldPay != null" >
+        should_pay = #{record.shouldPay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comission != null" >
+        comission = #{record.comission,jdbcType=DECIMAL},
+      </if>
+      <if test="record.comissionPin != null" >
+        comission_pin = #{record.comissionPin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pin != null" >
+        pin = #{record.pin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuCount != null" >
+        sku_count = #{record.skuCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderType != null" >
+        order_type = #{record.orderType,jdbcType=TINYINT},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orders
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      submit_time = #{record.submitTime,jdbcType=TIMESTAMP},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      out_stack_time = #{record.outStackTime,jdbcType=TIMESTAMP},
+      should_pay = #{record.shouldPay,jdbcType=DECIMAL},
+      comission = #{record.comission,jdbcType=DECIMAL},
+      comission_pin = #{record.comissionPin,jdbcType=VARCHAR},
+      pin = #{record.pin,jdbcType=VARCHAR},
+      sku_count = #{record.skuCount,jdbcType=INTEGER},
+      order_type = #{record.orderType,jdbcType=TINYINT},
+      order_status = #{record.orderStatus,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kobe.entity.Orders" >
+    update orders
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="submitTime != null" >
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outStackTime != null" >
+        out_stack_time = #{outStackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shouldPay != null" >
+        should_pay = #{shouldPay,jdbcType=DECIMAL},
+      </if>
+      <if test="comission != null" >
+        comission = #{comission,jdbcType=DECIMAL},
+      </if>
+      <if test="comissionPin != null" >
+        comission_pin = #{comissionPin,jdbcType=VARCHAR},
+      </if>
+      <if test="pin != null" >
+        pin = #{pin,jdbcType=VARCHAR},
+      </if>
+      <if test="skuCount != null" >
+        sku_count = #{skuCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=TINYINT},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kobe.entity.Orders" >
+    update orders
+    set order_id = #{orderId,jdbcType=INTEGER},
+      submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      out_stack_time = #{outStackTime,jdbcType=TIMESTAMP},
+      should_pay = #{shouldPay,jdbcType=DECIMAL},
+      comission = #{comission,jdbcType=DECIMAL},
+      comission_pin = #{comissionPin,jdbcType=VARCHAR},
+      pin = #{pin,jdbcType=VARCHAR},
+      sku_count = #{skuCount,jdbcType=INTEGER},
+      order_type = #{orderType,jdbcType=TINYINT},
+      order_status = #{orderStatus,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
