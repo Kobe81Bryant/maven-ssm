@@ -16,7 +16,7 @@
 </head>
 <body>
 jsp页面
-<form action="/page/upload" method="post" enctype="multipart/form-data">
+<form action="/upload" method="post" enctype="multipart/form-data">
     选择文件：<input type="file" name="files"/>
     <input type="file" name="files"/>
     <input type="file" name="files"/>
