@@ -52,7 +52,7 @@ public class PageController {
 	@RequestMapping("/test")
 	@ResponseBody
 	@ApiOperation(value = "测试验证")
-	public String test(@Valid @RequestParam Param param ,BindingResult result) throws Exception {
+	public String test(@Valid @RequestBody Param param ,BindingResult result) throws Exception {
 		boolean b = result.hasErrors();
 		if (b){
 			List<ObjectError> allErrors = result.getAllErrors();
