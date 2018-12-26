@@ -1,6 +1,5 @@
 package com.kobe.controller;
 
-import com.kobe.entity.Param;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
@@ -46,19 +45,6 @@ public class PageController {
 	@ApiOperation(value = "上传文件")
 	public String upload(@RequestParam MultipartFile file) throws IOException {
 		file.transferTo(new File("D:\\" + file.getOriginalFilename()));
-		return "suc";
-	}
-
-	@RequestMapping("/test")
-	@ResponseBody
-	@ApiOperation(value = "测试验证")
-	public String test(@Valid @RequestParam Param param ,BindingResult result) throws Exception {
-		boolean b = result.hasErrors();
-		if (b){
-			List<ObjectError> allErrors = result.getAllErrors();
-			ObjectError objectError = allErrors.get(0);
-			throw new Exception(objectError.getObjectName()+":"+objectError.getDefaultMessage());
-		}
 		return "suc";
 	}
 }
