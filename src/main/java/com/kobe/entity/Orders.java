@@ -1,264 +1,58 @@
 package com.kobe.entity;
 
-import java.io.Serializable;
+import lombok.Data;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Orders implements Serializable {
-    /**
-     * 
-     */
-    private Integer id;
-
-    /**
-     * 
-     */
-    private Integer orderId;
-
-    /**
-     * 
-     */
-    private Date submitTime;
-
-    /**
-     * 
-     */
-    private Date payTime;
-
-    /**
-     * 
-     */
-    private Date outStackTime;
-
-    /**
-     * 
-     */
-    private BigDecimal shouldPay;
-
-    /**
-     * 
-     */
-    private BigDecimal comission;
-
-    /**
-     * 
-     */
-    private String comissionPin;
-
-    /**
-     * 
-     */
+/**
+ * Created by liujianshuo on 2017/5/10.
+ */
+@Data
+public class Orders {
+    private Long orderId;
+    private Long parentOrderId;
     private String pin;
+    private Integer orderSkuCount;
+    private BigDecimal orderShouldPay;
+    private BigDecimal orderFee;
+    private BigDecimal orderEcard;
+    private Integer orderType;
+    private Integer recycleFlag;
+    private Integer cancelFlag;
+    private Integer cancelReasonType;
+    private Integer cancelResult;
+    private String cancelReason;
+    private Integer deleteFlag;
+    private Integer confirmFlag;
+    private Integer paymentType;
+    private Date payDatetime;
+    private Date outStockDatetime;
+    private Integer shipmentType;
+    private String orderDetail;
+    private Integer orderStateCenter;
+    private Integer orderStateToplife;
+    //private String autoCancelTime;
+    //下单时间
+    private Date submitDatetime;
 
-    /**
-     * 
-     */
-    private Integer skuCount;
 
-    /**
-     * 
-     */
-    private Byte orderType;
+    private Date syncDatetime1;
+    private Date syncDatetime2;
 
-    /**
-     * 
-     */
-    private Byte orderStatus;
+    private String orderUuid;
 
-    /**
-     * orders
-     */
-    private static final long serialVersionUID = 1L;
+    private BigDecimal orderCoupon;
+    private BigDecimal partMoney;
 
-    /**
-     * 
-     * @return id 
-     */
-    public Integer getId() {
-        return id;
-    }
+    private Integer source; //来源,目前为 1:pc, 2:app, 3:m, 默认值为0
+    private Integer client; //客户端,目前为 1:ios, 2:android, 3:ipad, 默认值为0
 
-    /**
-     * 
-     * @param id 
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    /**
-     * 
-     * @return order_id 
-     */
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    /**
-     * 
-     * @param orderId 
-     */
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
-
-    /**
-     * 
-     * @return submit_time 
-     */
-    public Date getSubmitTime() {
-        return submitTime;
-    }
-
-    /**
-     * 
-     * @param submitTime 
-     */
-    public void setSubmitTime(Date submitTime) {
-        this.submitTime = submitTime;
-    }
-
-    /**
-     * 
-     * @return pay_time 
-     */
-    public Date getPayTime() {
-        return payTime;
-    }
-
-    /**
-     * 
-     * @param payTime 
-     */
-    public void setPayTime(Date payTime) {
-        this.payTime = payTime;
-    }
-
-    /**
-     * 
-     * @return out_stack_time 
-     */
-    public Date getOutStackTime() {
-        return outStackTime;
-    }
-
-    /**
-     * 
-     * @param outStackTime 
-     */
-    public void setOutStackTime(Date outStackTime) {
-        this.outStackTime = outStackTime;
-    }
-
-    /**
-     * 
-     * @return should_pay 
-     */
-    public BigDecimal getShouldPay() {
-        return shouldPay;
-    }
-
-    /**
-     * 
-     * @param shouldPay 
-     */
-    public void setShouldPay(BigDecimal shouldPay) {
-        this.shouldPay = shouldPay;
-    }
-
-    /**
-     * 
-     * @return comission 
-     */
-    public BigDecimal getComission() {
-        return comission;
-    }
-
-    /**
-     * 
-     * @param comission 
-     */
-    public void setComission(BigDecimal comission) {
-        this.comission = comission;
-    }
-
-    /**
-     * 
-     * @return comission_pin 
-     */
-    public String getComissionPin() {
-        return comissionPin;
-    }
-
-    /**
-     * 
-     * @param comissionPin 
-     */
-    public void setComissionPin(String comissionPin) {
-        this.comissionPin = comissionPin == null ? null : comissionPin.trim();
-    }
-
-    /**
-     * 
-     * @return pin 
-     */
-    public String getPin() {
-        return pin;
-    }
-
-    /**
-     * 
-     * @param pin 
-     */
-    public void setPin(String pin) {
-        this.pin = pin == null ? null : pin.trim();
-    }
-
-    /**
-     * 
-     * @return sku_count 
-     */
-    public Integer getSkuCount() {
-        return skuCount;
-    }
-
-    /**
-     * 
-     * @param skuCount 
-     */
-    public void setSkuCount(Integer skuCount) {
-        this.skuCount = skuCount;
-    }
-
-    /**
-     * 
-     * @return order_type 
-     */
-    public Byte getOrderType() {
-        return orderType;
-    }
-
-    /**
-     * 
-     * @param orderType 
-     */
-    public void setOrderType(Byte orderType) {
-        this.orderType = orderType;
-    }
-
-    /**
-     * 
-     * @return order_status 
-     */
-    public Byte getOrderStatus() {
-        return orderStatus;
-    }
-
-    /**
-     * 
-     * @param orderStatus 
-     */
-    public void setOrderStatus(Byte orderStatus) {
-        this.orderStatus = orderStatus;
-    }
+    private Integer orderTypeToplife;//toplife订单类型，1表示一般订单   2表示预定的订单
+    private Integer orderTypeJingTiao; //京挑订单类型，1表示普通订单，2表示礼包订单
+    private BigDecimal commission; //订单产生的佣金
+    private String commissionPin; //记佣人pin
+    private Integer balanceState; //记佣状态 记佣状态，默认0未推送，1已推送，2已结算
+    private Long originalOrderId; //原始单号，逆向订单独有
+    private String taskId; //计提任务批次id
+    private String businessId; //计提业务id
 }
