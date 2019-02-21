@@ -42,7 +42,8 @@ public class FileController {
 	@ApiOperation(value = "上传文件")
 	public Response<String> upload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
 		Response<String>response=new Response<>();
-		String[] split = file.getOriginalFilename().split(".");
+		String name = file.getOriginalFilename();
+		String[] split = file.getOriginalFilename().split("\\.");
 		File target = new File("/opt/tomcat/webapps/pic/" + file.hashCode()+split[0] + ".jpg");
 		if (split.length>1&&split[split.length-1].equalsIgnoreCase("jpg")){
 			if (target.exists()){
