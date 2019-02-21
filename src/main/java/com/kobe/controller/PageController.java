@@ -1,6 +1,5 @@
 package com.kobe.controller;
 
-import com.kobe.entity.Param;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
@@ -11,13 +10,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.naming.Binding;
-import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 
 @Controller
 @Api(description = "页面跳转")
@@ -46,19 +40,6 @@ public class PageController {
 	@ApiOperation(value = "上传文件")
 	public String upload(@RequestParam MultipartFile file) throws IOException {
 		file.transferTo(new File("D:\\" + file.getOriginalFilename()));
-		return "suc";
-	}
-
-	@RequestMapping("/test")
-	@ResponseBody
-	@ApiOperation(value = "测试验证")
-	public String test(@Valid @RequestBody Param param ,BindingResult result) throws Exception {
-		boolean b = result.hasErrors();
-		if (b){
-			List<ObjectError> allErrors = result.getAllErrors();
-			ObjectError objectError = allErrors.get(0);
-			throw new Exception(objectError.getObjectName()+":"+objectError.getDefaultMessage());
-		}
 		return "suc";
 	}
 }
