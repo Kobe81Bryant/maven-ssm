@@ -41,7 +41,8 @@ public class PageController {
 		return "suc";
 	}
 
-	@GetMapping("userList")
+	@GetMapping("/userList")
+	@ApiOperation(value = "用户列表")
 	public List<TbUser>getUserList(){
 		TbUserExample tbUserExample=new TbUserExample();
 		TbUserExample.Criteria criteria = tbUserExample.createCriteria();
@@ -49,7 +50,8 @@ public class PageController {
 		return tbUsers;
 	}
 
-	@GetMapping("userList")
+	@GetMapping("/userListPage")
+	@ApiOperation(value = "用户列表分页")
 	public PageInfo<TbUser>getUserListPage(@RequestParam(defaultValue = "1") Integer page,
 									   @RequestParam(defaultValue = "3") Integer size){
 		PageHelper.startPage(page,size);
