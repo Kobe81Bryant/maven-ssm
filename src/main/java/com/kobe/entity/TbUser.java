@@ -2,7 +2,7 @@ package com.kobe.entity;
 
 import java.io.Serializable;
 
-public class Auti implements Serializable {
+public class TbUser implements Serializable {
     /**
      * 
      */
@@ -14,12 +14,7 @@ public class Auti implements Serializable {
     private String name;
 
     /**
-     * 
-     */
-    private Integer type;
-
-    /**
-     * auti
+     * tb_user
      */
     private static final long serialVersionUID = 1L;
 
@@ -53,21 +48,5 @@ public class Auti implements Serializable {
      */
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    /**
-     * 
-     * @return type 
-     */
-    public Integer getType() {
-        return type;
-    }
-
-    /**
-     * 
-     * @param type 
-     */
-    public void setType(Integer type) {
-        this.type = type;
     }
 }

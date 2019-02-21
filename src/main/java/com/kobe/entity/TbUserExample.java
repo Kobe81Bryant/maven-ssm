@@ -3,33 +3,33 @@ package com.kobe.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserExample {
+public class TbUserExample {
     /**
-     * user
+     * tb_user
      */
     protected String orderByClause;
 
     /**
-     * user
+     * tb_user
      */
     protected boolean distinct;
 
     /**
-     * user
+     * tb_user
      */
     protected List<Criteria> oredCriteria;
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
-    public UserExample() {
+    public TbUserExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -37,7 +37,7 @@ public class UserExample {
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -45,7 +45,7 @@ public class UserExample {
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -53,7 +53,7 @@ public class UserExample {
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
     public boolean isDistinct() {
         return distinct;
@@ -61,7 +61,7 @@ public class UserExample {
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -69,7 +69,7 @@ public class UserExample {
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -77,7 +77,7 @@ public class UserExample {
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -87,7 +87,7 @@ public class UserExample {
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -99,7 +99,7 @@ public class UserExample {
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -108,7 +108,7 @@ public class UserExample {
 
     /**
      *
-     * @mbggenerated 2018-12-09
+     * @mbggenerated 2019-02-21
      */
     public void clear() {
         oredCriteria.clear();
@@ -117,7 +117,7 @@ public class UserExample {
     }
 
     /**
-     * user 2018-12-09
+     * tb_user 2019-02-21
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -220,209 +220,79 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andPinIsNull() {
-            addCriterion("pin is null");
+        public Criteria andNameIsNull() {
+            addCriterion("name is null");
             return (Criteria) this;
         }
 
-        public Criteria andPinIsNotNull() {
-            addCriterion("pin is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPinEqualTo(String value) {
-            addCriterion("pin =", value, "pin");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("name =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinNotEqualTo(String value) {
-            addCriterion("pin <>", value, "pin");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("name <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinGreaterThan(String value) {
-            addCriterion("pin >", value, "pin");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("name >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinGreaterThanOrEqualTo(String value) {
-            addCriterion("pin >=", value, "pin");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("name >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinLessThan(String value) {
-            addCriterion("pin <", value, "pin");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("name <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinLessThanOrEqualTo(String value) {
-            addCriterion("pin <=", value, "pin");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("name <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinLike(String value) {
-            addCriterion("pin like", value, "pin");
+        public Criteria andNameLike(String value) {
+            addCriterion("name like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinNotLike(String value) {
-            addCriterion("pin not like", value, "pin");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("name not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinIn(List<String> values) {
-            addCriterion("pin in", values, "pin");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("name in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinNotIn(List<String> values) {
-            addCriterion("pin not in", values, "pin");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("name not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinBetween(String value1, String value2) {
-            addCriterion("pin between", value1, value2, "pin");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("name between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPinNotBetween(String value1, String value2) {
-            addCriterion("pin not between", value1, value2, "pin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinIsNull() {
-            addCriterion("parent_pin is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinIsNotNull() {
-            addCriterion("parent_pin is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinEqualTo(String value) {
-            addCriterion("parent_pin =", value, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinNotEqualTo(String value) {
-            addCriterion("parent_pin <>", value, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinGreaterThan(String value) {
-            addCriterion("parent_pin >", value, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinGreaterThanOrEqualTo(String value) {
-            addCriterion("parent_pin >=", value, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinLessThan(String value) {
-            addCriterion("parent_pin <", value, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinLessThanOrEqualTo(String value) {
-            addCriterion("parent_pin <=", value, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinLike(String value) {
-            addCriterion("parent_pin like", value, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinNotLike(String value) {
-            addCriterion("parent_pin not like", value, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinIn(List<String> values) {
-            addCriterion("parent_pin in", values, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinNotIn(List<String> values) {
-            addCriterion("parent_pin not in", values, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinBetween(String value1, String value2) {
-            addCriterion("parent_pin between", value1, value2, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentPinNotBetween(String value1, String value2) {
-            addCriterion("parent_pin not between", value1, value2, "parentPin");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelIsNull() {
-            addCriterion("level is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelIsNotNull() {
-            addCriterion("level is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelEqualTo(Byte value) {
-            addCriterion("level =", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelNotEqualTo(Byte value) {
-            addCriterion("level <>", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelGreaterThan(Byte value) {
-            addCriterion("level >", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelGreaterThanOrEqualTo(Byte value) {
-            addCriterion("level >=", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelLessThan(Byte value) {
-            addCriterion("level <", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelLessThanOrEqualTo(Byte value) {
-            addCriterion("level <=", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelIn(List<Byte> values) {
-            addCriterion("level in", values, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelNotIn(List<Byte> values) {
-            addCriterion("level not in", values, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelBetween(Byte value1, Byte value2) {
-            addCriterion("level between", value1, value2, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelNotBetween(Byte value1, Byte value2) {
-            addCriterion("level not between", value1, value2, "level");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("name not between", value1, value2, "name");
             return (Criteria) this;
         }
     }
 
     /**
-     * user
+     * tb_user
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -432,7 +302,7 @@ public class UserExample {
     }
 
     /**
-     * user 2018-12-09
+     * tb_user 2019-02-21
      */
     public static class Criterion {
         private String condition;

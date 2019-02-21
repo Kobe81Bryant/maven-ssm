@@ -1,64 +1,65 @@
 package com.kobe.controller;
 
-import com.kobe.entity.Param;
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.kobe.entity.TbUser;
+import com.kobe.entity.TbUserExample;
+import com.kobe.mapper.TbUserMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.naming.Binding;
-import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@Controller
+@RestController
 @Api(description = "页面跳转")
 @RequestMapping
 public class PageController {
+	@Autowired
+	private TbUserMapper tbUserMapper;
 	@GetMapping
-	public ModelAndView jsp() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("jsp");
-		return modelAndView;
+	@ApiOperation(value = "首页跳转")
+	public Map jsp() {
+		Map map=new HashMap();
+		map.put("appname","jiashu");
+		map.put("type","小程序");
+		map.put("sss","aaa");
+		map.put("aaa","ssssssssss");
+		return map;
 	}
 
-	@PostMapping("/uploads")
-	@ApiOperation(value = "上传多个文件")
-	public String uploads(@RequestParam MultipartFile[] files) throws IOException {
-		int length = files.length;
-		if (files != null && files.length > 0) {
-			for (MultipartFile file : files) {
-				file.transferTo(new File("D:\\" + file.getOriginalFilename()));
-			}
-		}
-		return "suc";
-	}
-
-	@PostMapping("/uploadsss")
+	@PostMapping("/fileUpload")
 	@ApiOperation(value = "上传文件")
 	public String upload(@RequestParam MultipartFile file) throws IOException {
-		file.transferTo(new File("D:\\" + file.getOriginalFilename()));
 		return "suc";
 	}
 
-	@RequestMapping("/test")
-	@ResponseBody
-	@ApiOperation(value = "测试验证")
-	public String test(@Valid @RequestBody Param param ,BindingResult result) throws Exception {
-		boolean b = result.hasErrors();
-		if (b){
-			List<ObjectError> allErrors = result.getAllErrors();
-			ObjectError objectError = allErrors.get(0);
-			throw new Exception(objectError.getObjectName()+":"+objectError.getDefaultMessage());
-		}
-		return "suc";
+	@GetMapping("/userList")
+	@ApiOperation(value = "用户列表")
+	public List<TbUser>getUserList(){
+		TbUserExample tbUserExample=new TbUserExample();
+		TbUserExample.Criteria criteria = tbUserExample.createCriteria();
+		List<TbUser> tbUsers = tbUserMapper.selectByExample(tbUserExample);
+		return tbUsers;
 	}
+
+	@GetMapping("/userListPage")
+	@ApiOperation(value = "用户列表分页")
+	public PageInfo<TbUser>getUserListPage(@RequestParam(defaultValue = "1") Integer page,
+									   @RequestParam(defaultValue = "3") Integer size){
+		PageHelper.startPage(page,size);
+		TbUserExample tbUserExample=new TbUserExample();
+		TbUserExample.Criteria criteria = tbUserExample.createCriteria();
+		List<TbUser> tbUsers = tbUserMapper.selectByExample(tbUserExample);
+		PageInfo<TbUser>pageInfo=new PageInfo<>(tbUsers);
+		return pageInfo;
+	}
+
 }

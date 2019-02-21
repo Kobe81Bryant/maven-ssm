@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class ExceptionCaptureAdvice {
+public class ExceptionAdvice {
     /**
      * 全局异常捕捉处理
      * @param ex
