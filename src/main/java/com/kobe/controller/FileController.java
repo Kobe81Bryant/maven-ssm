@@ -6,12 +6,16 @@ import com.github.pagehelper.PageInfo;
 import com.kobe.entity.TbUser;
 import com.kobe.entity.TbUserExample;
 import com.kobe.mapper.TbUserMapper;
+import com.kobe.vo.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,12 +25,11 @@ import java.util.Map;
 @RestController
 @Api(description = "页面跳转")
 @RequestMapping
-public class PageController {
+public class FileController {
 	@Autowired
 	private TbUserMapper tbUserMapper;
 	@GetMapping
-	@ApiOperation(value = "首页跳转")
-	public Map jsp() {
+	public Map index() {
 		Map map=new HashMap();
 		map.put("appname","jiashu");
 		map.put("type","小程序");
@@ -37,8 +40,15 @@ public class PageController {
 
 	@PostMapping("/fileUpload")
 	@ApiOperation(value = "上传文件")
-	public String upload(@RequestParam MultipartFile file) throws IOException {
-		return "suc";
+	public Response<String> upload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
+		Response<String>response=new Response<>();
+		String[] split = file.getOriginalFilename().split(".");
+		if (split.length>1&&split[split.length-1].equalsIgnoreCase("jpg")){
+			file.transferTo(new File("/opt/tomcat/webapps/pic"+file.hashCode()+".jpg"));
+		}
+		String s="pic"+file.hashCode()+".jpg";
+		response.setData(s);
+		return response;
 	}
 
 	@GetMapping("/userList")
