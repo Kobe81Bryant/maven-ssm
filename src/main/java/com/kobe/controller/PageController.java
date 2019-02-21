@@ -22,7 +22,7 @@ public class PageController {
 		map.put("appname","jiashu");
 		map.put("type","小程序");
 		map.put("sss","aaa");
-		map.put("aaa","ssssss");
+		map.put("aaa","ssssssssss");
 		return map;
 	}
 
