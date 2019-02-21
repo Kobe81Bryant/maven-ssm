@@ -1,5 +1,6 @@
 package com.kobe.controller;
 
+import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class PageController {
 		map.put("appname","jiashu");
 		map.put("type","小程序");
 		map.put("sss","aaa");
+		map.put("aaa","sss");
 		return map;
 	}
 
@@ -28,5 +30,9 @@ public class PageController {
 	@ApiOperation(value = "上传文件")
 	public String upload(@RequestParam MultipartFile file) throws IOException {
 		return "suc";
+	}
+
+	public static void main(String[] args) {
+		String s = JSON.toJSONString(null);
 	}
 }
