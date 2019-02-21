@@ -20,7 +20,7 @@ public class PageController {
 		Map map=new HashMap();
 		map.put("appname","jiashu");
 		map.put("type","小程序");
-		map.put("sss","aaa")
+		map.put("sss","aaa");
 		return map;
 	}
 
