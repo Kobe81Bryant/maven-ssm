@@ -1,6 +1,8 @@
 package com.kobe.entity;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -55,4 +57,14 @@ public class Orders {
     private Long originalOrderId; //原始单号，逆向订单独有
     private String taskId; //计提任务批次id
     private String businessId; //计提业务id
+
+    private Long id;
+
+    private Short yn;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date created;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date modified;
 }
