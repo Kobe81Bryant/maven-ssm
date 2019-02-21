@@ -43,10 +43,14 @@ public class FileController {
 	public Response<String> upload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
 		Response<String>response=new Response<>();
 		String[] split = file.getOriginalFilename().split(".");
+		File target = new File("/opt/tomcat/webapps/pic/" + file.hashCode()+split[0] + ".jpg");
 		if (split.length>1&&split[split.length-1].equalsIgnoreCase("jpg")){
-			file.transferTo(new File("/opt/tomcat/webapps/pic"+file.hashCode()+".jpg"));
+			if (target.exists()){
+				target.delete();
+			}
+			file.transferTo(target);
 		}
-		String s="pic"+file.hashCode()+".jpg";
+		String s="pic/" + file.hashCode()+split[0] + ".jpg";
 		response.setData(s);
 		return response;
 	}
