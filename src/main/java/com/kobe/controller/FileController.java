@@ -51,18 +51,16 @@ public class FileController {
 
 		Response response=new Response<>();
 		String urlPre="http://pnbddfn6a.bkt.clouddn.com/";
-		//String ACCESS_KEY = "10NXVqLEZ7IqlTk8jPS-7SKL8aWxXlSWLTU6hzYx";
 		String ACCESS_KEY = "bTB3it-wjNnbYhUAksG-63hhDwDdK9uD7iMzaHB3";
-		//String SECRET_KEY = "y9U3HqvkYxi1CIpVBrcwtGMKWFHIe3frUAXXb_0U";
 		String SECRET_KEY = "Z6FoxGx2BwymRnp1-ym1DseT5jw09MXUEwAMOcMC";
 		String bucketname = "jiashupic";
-		//String bucketname = "image";
 		Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
 		String uploadToken = auth.uploadToken(bucketname);
 		Configuration cfg = new Configuration(Zone.zone1());
 		UploadManager uploadManager = new UploadManager(cfg);
 		com.qiniu.http.Response put = uploadManager.put(file.getBytes(), file.getOriginalFilename(), uploadToken);
 		response.setData(urlPre + JSONObject.parseObject(put.bodyString()).get("key"));
+		response.setData(put);
 		return response;
 	}
 
