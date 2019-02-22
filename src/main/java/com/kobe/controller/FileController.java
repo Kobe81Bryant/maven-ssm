@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import com.kobe.entity.TbUser;
 import com.kobe.entity.TbUserExample;
 import com.kobe.mapper.TbUserMapper;
+import com.kobe.service.FileService;
 import com.kobe.vo.Response;
 import com.qiniu.common.Zone;
 import com.qiniu.storage.Configuration;
@@ -34,6 +35,8 @@ import java.util.Map;
 public class FileController {
 	@Autowired
 	private TbUserMapper tbUserMapper;
+	@Autowired
+	private FileService fileService;
 	@GetMapping
 	public Map index() {
 		Map map=new HashMap();
@@ -46,21 +49,10 @@ public class FileController {
 
 	@PostMapping("/fileUpload")
 	@ApiOperation(value = "上传文件")
-	public Response upload(@RequestParam MultipartFile file) throws Exception {
-		  String QINIU_IMAGE_DOMAIN = "http://p5mgpfjck.bkt.clouddn.com/";
-
-		Response response=new Response<>();
-		String urlPre="http://pnbddfn6a.bkt.clouddn.com/";
-		String ACCESS_KEY = "bTB3it-wjNnbYhUAksG-63hhDwDdK9uD7iMzaHB3";
-		String SECRET_KEY = "Z6FoxGx2BwymRnp1-ym1DseT5jw09MXUEwAMOcMC";
-		String bucketname = "jiashupic";
-		Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
-		String uploadToken = auth.uploadToken(bucketname);
-		Configuration cfg = new Configuration(Zone.zone1());
-		UploadManager uploadManager = new UploadManager(cfg);
-		com.qiniu.http.Response put = uploadManager.put(file.getBytes(), file.getOriginalFilename(), uploadToken);
-		response.setData(urlPre + JSONObject.parseObject(put.bodyString()).get("key"));
-		response.setData(put);
+	public Response<String> upload(@RequestParam MultipartFile file) throws Exception {
+		Response<String> response=new Response<>();
+		String url = fileService.uploadFile(file);
+		response.setData(url);
 		return response;
 	}
 

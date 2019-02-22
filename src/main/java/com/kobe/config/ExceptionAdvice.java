@@ -11,15 +11,16 @@ import java.util.Map;
 public class ExceptionAdvice {
     /**
      * 全局异常捕捉处理
-     * @param ex
+     * @param
      * @return
      */
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
-    public Map errorHandler(Exception ex) {
+    public Map errorHandler(Exception e) {
         Map map = new HashMap();
-        map.put("code", 100);
-        map.put("msg", ex.getMessage());
+        map.put("code", 500);
+        map.put("message", e.getMessage());
+        map.put("data",e);e
         return map;
     }
 }
