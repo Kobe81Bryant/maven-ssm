@@ -481,6 +481,12 @@
             <artifactId>javax.websocket-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>7.2.6</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <!-- 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->

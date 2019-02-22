@@ -1,12 +1,17 @@
 package com.kobe.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kobe.entity.TbUser;
 import com.kobe.entity.TbUserExample;
 import com.kobe.mapper.TbUserMapper;
 import com.kobe.vo.Response;
+import com.qiniu.common.Zone;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.util.Auth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,19 +46,23 @@ public class FileController {
 
 	@PostMapping("/fileUpload")
 	@ApiOperation(value = "上传文件")
-	public Response<String> upload(@RequestParam MultipartFile file, HttpServletRequest request) throws IOException {
-		Response<String>response=new Response<>();
-		String name = file.getOriginalFilename();
-		String[] split = file.getOriginalFilename().split("\\.");
-		File target = new File("/opt/tomcat/webapps/pic/" + file.hashCode()+split[0] + ".jpg");
-		if (split.length>1&&split[split.length-1].equalsIgnoreCase("jpg")){
-			if (target.exists()){
-				target.delete();
-			}
-			file.transferTo(target);
-		}
-		String s="pic/" + file.hashCode()+split[0] + ".jpg";
-		response.setData(s);
+	public Response upload(@RequestParam MultipartFile file) throws Exception {
+		  String QINIU_IMAGE_DOMAIN = "http://p5mgpfjck.bkt.clouddn.com/";
+
+		Response response=new Response<>();
+		String urlPre="http://pnbddfn6a.bkt.clouddn.com/";
+		//String ACCESS_KEY = "10NXVqLEZ7IqlTk8jPS-7SKL8aWxXlSWLTU6hzYx";
+		String ACCESS_KEY = "bTB3it-wjNnbYhUAksG-63hhDwDdK9uD7iMzaHB3";
+		//String SECRET_KEY = "y9U3HqvkYxi1CIpVBrcwtGMKWFHIe3frUAXXb_0U";
+		String SECRET_KEY = "Z6FoxGx2BwymRnp1-ym1DseT5jw09MXUEwAMOcMC";
+		String bucketname = "jiashupic";
+		//String bucketname = "image";
+		Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+		String uploadToken = auth.uploadToken(bucketname);
+		Configuration cfg = new Configuration(Zone.zone1());
+		UploadManager uploadManager = new UploadManager(cfg);
+		com.qiniu.http.Response put = uploadManager.put(file.getBytes(), file.getOriginalFilename(), uploadToken);
+		response.setData(urlPre + JSONObject.parseObject(put.bodyString()).get("key"));
 		return response;
 	}
 
