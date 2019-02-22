@@ -42,8 +42,6 @@ public class FileController {
 		Map map=new HashMap();
 		map.put("appname","jiashu");
 		map.put("type","小程序");
-		map.put("sss","aaa");
-		map.put("aaa","ssssssssss");
 		return map;
 	}
 
