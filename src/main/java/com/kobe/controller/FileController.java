@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@Api(description = "页面跳转")
+@Api(description = "文件服务")
 @RequestMapping
 public class FileController {
 	@Autowired
