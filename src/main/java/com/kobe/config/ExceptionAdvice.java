@@ -20,7 +20,7 @@ public class ExceptionAdvice {
         Map map = new HashMap();
         map.put("code", 500);
         map.put("message", e.getMessage());
-        map.put("data",e);e
+        map.put("data",e);
         return map;
     }
 }
