@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ import java.util.Map;
 @RestController
 @Api(description = "文件服务")
 @RequestMapping
-public class FileController {
+public class FileController extends BaseController{
 	@Autowired
 	private TbUserMapper tbUserMapper;
 	@Autowired
@@ -49,10 +50,11 @@ public class FileController {
 
 	@PostMapping("/fileUpload")
 	@ApiOperation(value = "上传文件")
-	public Response<String> upload(@RequestParam MultipartFile file) throws Exception {
+	public Response<String> upload() throws Exception {
 		Response<String> response=new Response<>();
-		String url = fileService.uploadFile(file);
-		response.setData(url);
+		Enumeration headerNames = request.getHeaderNames();
+		//String url = fileService.uploadFile(file);
+		//response.setData(url);
 		return response;
 	}
 
