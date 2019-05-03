@@ -4,10 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kobe.entity.SkuNotice;
-import com.kobe.mapper.SkuNoticeMapper;
-import com.kobe.mapper.ext.SkuNoticeMapperExt;
 import com.kobe.service.FileService;
+import com.kobe.vo.Param;
 import com.kobe.vo.Response;
 import com.qiniu.common.Zone;
 import com.qiniu.storage.Configuration;
@@ -23,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,11 +36,6 @@ import java.util.Map;
 public class FileController {
     @Autowired
     private FileService fileService;
-    @Autowired
-    private SkuNoticeMapperExt skuNoticeMapperExt;
-    @Autowired
-    private SkuNoticeMapper skuNoticeMapper;
-
     @GetMapping
     public Map index() {
         Map map = new HashMap();
@@ -89,31 +83,11 @@ public class FileController {
         return response;
     }
 
+    @PostMapping("/test2")
+    @ApiOperation(value = "测试long")
+    public Response test2(@Valid Param param){
+        Response response = new Response();
 
-    @GetMapping("/test2")
-    @ApiOperation(value = "测试mubatis继承")
-    public Response testMybatis() {
-        List<String> names = skuNoticeMapperExt.getNames();
-        Response response=new Response();
-        response.setData(names);
-        return response;
-    }
-
-    @GetMapping("/test3")
-    @ApiOperation(value = "测试mubatis继承1")
-    public Response testMybatis1() {
-        List<SkuNotice> list = skuNoticeMapper.selectByExample(null);
-        Response response=new Response();
-        response.setData(list);
-        return response;
-    }
-
-    @GetMapping("/test4")
-    @ApiOperation(value = "测试mubatis继承")
-    public Response testMybatis3() {
-        List<SkuNotice> list = skuNoticeMapperExt.selectByExample(null);
-        Response response=new Response();
-        response.setData("asdasdasaasdasdasa");
         return response;
     }
 
