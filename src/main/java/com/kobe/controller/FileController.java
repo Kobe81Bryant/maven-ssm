@@ -4,10 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kobe.entity.SkuNotice;
-import com.kobe.mapper.SkuNoticeMapper;
-import com.kobe.mapper.ext.SkuNoticeMapperExt;
 import com.kobe.service.FileService;
+import com.kobe.vo.Param;
 import com.kobe.vo.Response;
 import com.qiniu.common.Zone;
 import com.qiniu.storage.Configuration;
@@ -17,8 +15,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,11 +36,6 @@ import java.util.Map;
 public class FileController {
     @Autowired
     private FileService fileService;
-    @Autowired
-    private SkuNoticeMapperExt skuNoticeMapperExt;
-    @Autowired
-    private SkuNoticeMapper skuNoticeMapper;
-
     @GetMapping
     public Map index() {
         Map map = new HashMap();
@@ -92,55 +83,12 @@ public class FileController {
         return response;
     }
 
+    @PostMapping("/test2")
+    @ApiOperation(value = "测试long")
+    public Response test2(@Valid Param param){
+        Response response = new Response();
 
-    @GetMapping("/test2")
-    @ApiOperation(value = "测试mubatis继承")
-    public Response testMybatis() {
-        List<String> names = skuNoticeMapperExt.getNames();
-        Response response=new Response();
-        response.setData(names);
         return response;
     }
-
-    @GetMapping("/test3")
-    @ApiOperation(value = "测试mubatis继承1")
-    public Response testMybatis1() {
-        List<SkuNotice> list = skuNoticeMapper.selectByExample(null);
-        Response response=new Response();
-        response.setData(list);
-        return response;
-    }
-
-    @GetMapping("/test4")
-    @ApiOperation(value = "测试mubatis继承")
-    public Response testMybatis3() {
-        List<SkuNotice> list = skuNoticeMapperExt.selectByExample(null);
-        Response response=new Response();
-        response.setData("啊实打实打算");
-        return response;
-    }
-
-    @PostMapping("/test5")
-    @ApiOperation(value = "测试分页")
-    public Response testMybatisPagea() throws Exception {
-        PageHelper.startPage(2,3);
-        List<SkuNotice> list = skuNoticeMapperExt.selectByExample(null);
-        PageInfo<SkuNotice>pageInfo=new PageInfo<>(list);
-        Response response=new Response();
-        response.setData(pageInfo);
-        //throw new Exception(result.getAllErrors().get(0).getDefaultMessage());
-        return response;
-    }
-
-
-
-    @PostMapping("/test6")
-    @ApiOperation(value = "测试环绕")
-    public String testaround() throws Exception {
-        int i=1/0;
-        return String.valueOf(i);
-    }
-
-
 
 }
