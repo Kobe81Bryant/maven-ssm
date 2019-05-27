@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kobe.service.FileService;
-import com.kobe.vo.Param;
 import com.kobe.vo.Response;
 import com.qiniu.common.Zone;
 import com.qiniu.storage.Configuration;
@@ -85,7 +84,7 @@ public class FileController {
 
     @PostMapping("/test2")
     @ApiOperation(value = "测试long")
-    public Response test2(@Valid Param param){
+    public Response test2(){
         Response response = new Response();
 
         return response;
