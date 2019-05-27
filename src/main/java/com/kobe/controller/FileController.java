@@ -17,12 +17,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -113,8 +116,31 @@ public class FileController {
     public Response testMybatis3() {
         List<SkuNotice> list = skuNoticeMapperExt.selectByExample(null);
         Response response=new Response();
-        response.setData("asdasdasaasdasdasa");
+        response.setData("啊实打实打算");
         return response;
     }
+
+    @PostMapping("/test5")
+    @ApiOperation(value = "测试分页")
+    public Response testMybatisPagea() throws Exception {
+        PageHelper.startPage(2,3);
+        List<SkuNotice> list = skuNoticeMapperExt.selectByExample(null);
+        PageInfo<SkuNotice>pageInfo=new PageInfo<>(list);
+        Response response=new Response();
+        response.setData(pageInfo);
+        //throw new Exception(result.getAllErrors().get(0).getDefaultMessage());
+        return response;
+    }
+
+
+
+    @PostMapping("/test6")
+    @ApiOperation(value = "测试环绕")
+    public String testaround() throws Exception {
+        int i=1/0;
+        return String.valueOf(i);
+    }
+
+
 
 }

@@ -5,12 +5,15 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 		http://code.alibabatech.com/schema/dubbo
 		http://code.alibabatech.com/schema/dubbo/dubbo.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
@@ -53,4 +56,5 @@
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
     <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration"
           id="swagger2Config"/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 </beans>

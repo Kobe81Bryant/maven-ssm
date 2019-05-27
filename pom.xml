@@ -502,11 +502,6 @@
             <artifactId>joda-time</artifactId>
             <version>2.10.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.jd.limitbuy</groupId>
-            <artifactId>limitbuy.soa.order-client</artifactId>
-            <version>0.0.10-SNAPSHOT</version>
-        </dependency>
     </dependencies>
     <build>
         <!-- 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->

@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kobe.entity.Pojo;
 import com.kobe.entity.SkuNotice;
 import com.kobe.service.FileService;
 import org.joda.time.DateTime;
@@ -28,13 +27,15 @@ public class TestDemo {
 //    private FileService fileService;
     @Test
     public void test1() throws ParseException {
-        Integer i=5;
-        System.out.println(i.toString());
+        String s1="a";
+        String s2="b";
+        String s3="c";
+        String s4="c";
 
-        String asd="null";
-        List<Integer> list = JSON.parseArray(asd, Integer.class);
-        System.out.println(list);
-        System.out.println(asd);
+        StringBuilder builder=new StringBuilder("asd");
+
+        System.out.println(builder.append(s1).append(s2));
+
     }
 }
 

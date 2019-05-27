@@ -15,12 +15,12 @@ public class ExceptionAdvice {
      * @return
      */
     @ResponseBody
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = Throwable.class)
     public Map errorHandler(Exception e) {
         Map map = new HashMap();
         map.put("code", 500);
         map.put("message", e.getMessage());
-        map.put("data",e);
+        //map.put("data",e);
         return map;
     }
 }

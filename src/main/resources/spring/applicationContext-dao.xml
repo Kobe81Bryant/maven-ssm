@@ -27,6 +27,7 @@
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="maxActive" value="10"/>
         <property name="minIdle" value="5"/>
+        <property name="filters" value="stat" />
     </bean>
     <!-- 让spring管理sqlsessionfactory 使用mybatis和spring整合包中的 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
