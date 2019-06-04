@@ -1,9 +1,5 @@
 package com.kobe.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.kobe.service.FileService;
 import com.kobe.vo.Response;
 import com.qiniu.common.Zone;
@@ -12,17 +8,14 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,7 +25,9 @@ import java.util.Map;
 @RestController
 @Api(description = "文件服务")
 @RequestMapping
+@Log4j2
 public class FileController {
+    //public static final Logger loger = LogManager.getLogger(FileController.class);
     @Autowired
     private FileService fileService;
     @GetMapping
@@ -86,7 +81,7 @@ public class FileController {
     @ApiOperation(value = "测试long")
     public Response test2(){
         Response response = new Response();
-
+        log.info("asdasdasdas");
         return response;
     }
 

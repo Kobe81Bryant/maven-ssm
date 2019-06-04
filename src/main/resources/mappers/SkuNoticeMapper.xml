@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kobe.mapper.SkuNoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.kobe.entity.SkuNotice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
+    <result column="ord" property="ord" jdbcType="INTEGER" />
+    <result column="yn" property="yn" jdbcType="TINYINT" />
+    <result column="is_hot" property="isHot" jdbcType="INTEGER" />
+    <result column="mark_price" property="markPrice" jdbcType="DECIMAL" />
+    <result column="sku_slogan" property="skuSlogan" jdbcType="VARCHAR" />
+    <result column="stock_slogan" property="stockSlogan" jdbcType="VARCHAR" />
+    <result column="show_time" property="showTime" jdbcType="TIMESTAMP" />
+    <result column="sell_time" property="sellTime" jdbcType="TIMESTAMP" />
+    <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+    <result column="coupon_type" property="couponType" jdbcType="INTEGER" />
+    <result column="batch_id" property="batchId" jdbcType="INTEGER" />
+    <result column="comm_vip_rate" property="commVipRate" jdbcType="INTEGER" />
+    <result column="comm_svip_rate" property="commSvipRate" jdbcType="INTEGER" />
+    <result column="comm_begin_time" property="commBeginTime" jdbcType="TIMESTAMP" />
+    <result column="comm_end_time" property="commEndTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="coupon_key" property="couponKey" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, sku_id, type, created, sku_name, ord, yn, is_hot, mark_price, sku_slogan, stock_slogan, 
+    show_time, sell_time, close_time, coupon_type, batch_id, comm_vip_rate, comm_svip_rate, 
+    comm_begin_time, comm_end_time, status, coupon_key, role_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.kobe.entity.SkuNoticeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sku_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sku_notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sku_notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.kobe.entity.SkuNoticeExample" >
+    delete from sku_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.kobe.entity.SkuNotice" >
+    insert into sku_notice (id, sku_id, type, 
+      created, sku_name, ord, 
+      yn, is_hot, mark_price, 
+      sku_slogan, stock_slogan, show_time, 
+      sell_time, close_time, coupon_type, 
+      batch_id, comm_vip_rate, comm_svip_rate, 
+      comm_begin_time, comm_end_time, status, 
+      coupon_key, role_id)
+    values (#{id,jdbcType=INTEGER}, #{skuId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
+      #{created,jdbcType=TIMESTAMP}, #{skuName,jdbcType=VARCHAR}, #{ord,jdbcType=INTEGER}, 
+      #{yn,jdbcType=TINYINT}, #{isHot,jdbcType=INTEGER}, #{markPrice,jdbcType=DECIMAL}, 
+      #{skuSlogan,jdbcType=VARCHAR}, #{stockSlogan,jdbcType=VARCHAR}, #{showTime,jdbcType=TIMESTAMP}, 
+      #{sellTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{couponType,jdbcType=INTEGER}, 
+      #{batchId,jdbcType=INTEGER}, #{commVipRate,jdbcType=INTEGER}, #{commSvipRate,jdbcType=INTEGER}, 
+      #{commBeginTime,jdbcType=TIMESTAMP}, #{commEndTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{couponKey,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kobe.entity.SkuNotice" >
+    insert into sku_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="skuName != null" >
+        sku_name,
+      </if>
+      <if test="ord != null" >
+        ord,
+      </if>
+      <if test="yn != null" >
+        yn,
+      </if>
+      <if test="isHot != null" >
+        is_hot,
+      </if>
+      <if test="markPrice != null" >
+        mark_price,
+      </if>
+      <if test="skuSlogan != null" >
+        sku_slogan,
+      </if>
+      <if test="stockSlogan != null" >
+        stock_slogan,
+      </if>
+      <if test="showTime != null" >
+        show_time,
+      </if>
+      <if test="sellTime != null" >
+        sell_time,
+      </if>
+      <if test="closeTime != null" >
+        close_time,
+      </if>
+      <if test="couponType != null" >
+        coupon_type,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="commVipRate != null" >
+        comm_vip_rate,
+      </if>
+      <if test="commSvipRate != null" >
+        comm_svip_rate,
+      </if>
+      <if test="commBeginTime != null" >
+        comm_begin_time,
+      </if>
+      <if test="commEndTime != null" >
+        comm_end_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="couponKey != null" >
+        coupon_key,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skuName != null" >
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="ord != null" >
+        #{ord,jdbcType=INTEGER},
+      </if>
+      <if test="yn != null" >
+        #{yn,jdbcType=TINYINT},
+      </if>
+      <if test="isHot != null" >
+        #{isHot,jdbcType=INTEGER},
+      </if>
+      <if test="markPrice != null" >
+        #{markPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuSlogan != null" >
+        #{skuSlogan,jdbcType=VARCHAR},
+      </if>
+      <if test="stockSlogan != null" >
+        #{stockSlogan,jdbcType=VARCHAR},
+      </if>
+      <if test="showTime != null" >
+        #{showTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellTime != null" >
+        #{sellTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponType != null" >
+        #{couponType,jdbcType=INTEGER},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="commVipRate != null" >
+        #{commVipRate,jdbcType=INTEGER},
+      </if>
+      <if test="commSvipRate != null" >
+        #{commSvipRate,jdbcType=INTEGER},
+      </if>
+      <if test="commBeginTime != null" >
+        #{commBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commEndTime != null" >
+        #{commEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="couponKey != null" >
+        #{couponKey,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.kobe.entity.SkuNoticeExample" resultType="java.lang.Integer" >
+    select count(*) from sku_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sku_notice
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuId != null" >
+        sku_id = #{record.skuId,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.skuName != null" >
+        sku_name = #{record.skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ord != null" >
+        ord = #{record.ord,jdbcType=INTEGER},
+      </if>
+      <if test="record.yn != null" >
+        yn = #{record.yn,jdbcType=TINYINT},
+      </if>
+      <if test="record.isHot != null" >
+        is_hot = #{record.isHot,jdbcType=INTEGER},
+      </if>
+      <if test="record.markPrice != null" >
+        mark_price = #{record.markPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.skuSlogan != null" >
+        sku_slogan = #{record.skuSlogan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockSlogan != null" >
+        stock_slogan = #{record.stockSlogan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showTime != null" >
+        show_time = #{record.showTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sellTime != null" >
+        sell_time = #{record.sellTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.closeTime != null" >
+        close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.couponType != null" >
+        coupon_type = #{record.couponType,jdbcType=INTEGER},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=INTEGER},
+      </if>
+      <if test="record.commVipRate != null" >
+        comm_vip_rate = #{record.commVipRate,jdbcType=INTEGER},
+      </if>
+      <if test="record.commSvipRate != null" >
+        comm_svip_rate = #{record.commSvipRate,jdbcType=INTEGER},
+      </if>
+      <if test="record.commBeginTime != null" >
+        comm_begin_time = #{record.commBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.commEndTime != null" >
+        comm_end_time = #{record.commEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.couponKey != null" >
+        coupon_key = #{record.couponKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null" >
+        role_id = #{record.roleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sku_notice
+    set id = #{record.id,jdbcType=INTEGER},
+      sku_id = #{record.skuId,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      sku_name = #{record.skuName,jdbcType=VARCHAR},
+      ord = #{record.ord,jdbcType=INTEGER},
+      yn = #{record.yn,jdbcType=TINYINT},
+      is_hot = #{record.isHot,jdbcType=INTEGER},
+      mark_price = #{record.markPrice,jdbcType=DECIMAL},
+      sku_slogan = #{record.skuSlogan,jdbcType=VARCHAR},
+      stock_slogan = #{record.stockSlogan,jdbcType=VARCHAR},
+      show_time = #{record.showTime,jdbcType=TIMESTAMP},
+      sell_time = #{record.sellTime,jdbcType=TIMESTAMP},
+      close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      coupon_type = #{record.couponType,jdbcType=INTEGER},
+      batch_id = #{record.batchId,jdbcType=INTEGER},
+      comm_vip_rate = #{record.commVipRate,jdbcType=INTEGER},
+      comm_svip_rate = #{record.commSvipRate,jdbcType=INTEGER},
+      comm_begin_time = #{record.commBeginTime,jdbcType=TIMESTAMP},
+      comm_end_time = #{record.commEndTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      coupon_key = #{record.couponKey,jdbcType=VARCHAR},
+      role_id = #{record.roleId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kobe.entity.SkuNotice" >
+    update sku_notice
+    <set >
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skuName != null" >
+        sku_name = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="ord != null" >
+        ord = #{ord,jdbcType=INTEGER},
+      </if>
+      <if test="yn != null" >
+        yn = #{yn,jdbcType=TINYINT},
+      </if>
+      <if test="isHot != null" >
+        is_hot = #{isHot,jdbcType=INTEGER},
+      </if>
+      <if test="markPrice != null" >
+        mark_price = #{markPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuSlogan != null" >
+        sku_slogan = #{skuSlogan,jdbcType=VARCHAR},
+      </if>
+      <if test="stockSlogan != null" >
+        stock_slogan = #{stockSlogan,jdbcType=VARCHAR},
+      </if>
+      <if test="showTime != null" >
+        show_time = #{showTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellTime != null" >
+        sell_time = #{sellTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="couponType != null" >
+        coupon_type = #{couponType,jdbcType=INTEGER},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="commVipRate != null" >
+        comm_vip_rate = #{commVipRate,jdbcType=INTEGER},
+      </if>
+      <if test="commSvipRate != null" >
+        comm_svip_rate = #{commSvipRate,jdbcType=INTEGER},
+      </if>
+      <if test="commBeginTime != null" >
+        comm_begin_time = #{commBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commEndTime != null" >
+        comm_end_time = #{commEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="couponKey != null" >
+        coupon_key = #{couponKey,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kobe.entity.SkuNotice" >
+    update sku_notice
+    set sku_id = #{skuId,jdbcType=BIGINT},
+      type = #{type,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      sku_name = #{skuName,jdbcType=VARCHAR},
+      ord = #{ord,jdbcType=INTEGER},
+      yn = #{yn,jdbcType=TINYINT},
+      is_hot = #{isHot,jdbcType=INTEGER},
+      mark_price = #{markPrice,jdbcType=DECIMAL},
+      sku_slogan = #{skuSlogan,jdbcType=VARCHAR},
+      stock_slogan = #{stockSlogan,jdbcType=VARCHAR},
+      show_time = #{showTime,jdbcType=TIMESTAMP},
+      sell_time = #{sellTime,jdbcType=TIMESTAMP},
+      close_time = #{closeTime,jdbcType=TIMESTAMP},
+      coupon_type = #{couponType,jdbcType=INTEGER},
+      batch_id = #{batchId,jdbcType=INTEGER},
+      comm_vip_rate = #{commVipRate,jdbcType=INTEGER},
+      comm_svip_rate = #{commSvipRate,jdbcType=INTEGER},
+      comm_begin_time = #{commBeginTime,jdbcType=TIMESTAMP},
+      comm_end_time = #{commEndTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      coupon_key = #{couponKey,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

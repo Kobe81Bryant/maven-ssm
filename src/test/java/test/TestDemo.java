@@ -7,25 +7,42 @@ import com.github.pagehelper.PageInfo;
 import com.kobe.entity.SkuNotice;
 import com.kobe.entity.UserEntity;
 import com.kobe.service.FileService;
+import com.kobe.utils.ESUtil;
+import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.aspectj.weaver.SignatureUtils;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
+import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.metrics.stats.InternalStats;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.net.UnknownHostException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"classpath:/spring/applicationContext-*.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:/spring/applicationContext-*.xml"})
+@Log4j2
 public class TestDemo {
     //    @Autowired
 //    private FileService fileService;
@@ -75,7 +92,7 @@ public class TestDemo {
 
         String str1 = new String("hello");
         String str2 = new String("hello");
-        System.out.println(str1==str2);
+        System.out.println(str1 == str2);
         System.out.println(str1.equals(str2));
     }
 
@@ -94,12 +111,51 @@ public class TestDemo {
 //        Method repay = userEntityClass.getMethod("repay", int.class);
 //        repay.invoke(userEntity,200000);
 
-        MethodUtils.invokeMethod(userEntity,"repay",4);
+        MethodUtils.invokeMethod(userEntity, "repay", 4);
 
 
         Class<?> aClass = this.getClass().getClassLoader().loadClass("com.kobe.entity.UserEntity");
 
         System.out.println(aClass);
+    }
+
+    @Autowired
+    private TransportClient client;
+
+    @Test
+    public void ESTest1() throws UnknownHostException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sformat = "yyyy-MM-dd HH:mm:ss";
+        TermQueryBuilder commissionPin = QueryBuilders.termQuery("commissionPin", "dongdong3625202");
+        RangeQueryBuilder submitDatetime = QueryBuilders.rangeQuery("submitDatetime").gte("2018-01-01 18:00:00").format(sformat);
+        //近1天的
+//        SearchResponse response =
+//                client.prepareSearch("jingtiao").setTypes("effective_orders")
+//                        .setQuery(QueryBuilders.boolQuery().filter(submitDatetime).filter(commissionPin)).setSize(0)
+//                        .addAggregation(AggregationBuilders.stats("agg_commission").field("commission")).execute().actionGet();
+//        InternalStats agg_commission = response.getAggregations().get("agg_commission");
+//
+//        response = client.prepareSearch("jingtiao").setTypes("effective_orders")
+//                .setQuery(QueryBuilders.boolQuery().filter(submitDatetime).filter(commissionPin)).setSize(0).execute().actionGet();
+//        System.out.println(JSON.toJSONString(response));
+        SearchResponse response = client.prepareSearch("jingtiao").setTypes("effective_orders")
+                .setQuery(QueryBuilders.boolQuery().filter(submitDatetime).filter(commissionPin))
+                .execute().actionGet();
+        SearchHits hits = response.getHits();
+        System.out.println(hits);
+        for (SearchHit hit : hits) {
+            System.out.println(log);
+            String id = hit.getId();
+            System.out.println(id);
+            System.out.println(hit.getSourceAsMap());
+        }
+    }
+
+    @Test
+    public void logTest(){
+        System.out.println(log);
+        System.out.println(log);
+        TestDemo.log.info("asdasdasdsadasd");
     }
 
 }
