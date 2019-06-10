@@ -19,7 +19,7 @@ public class Aop1 {
     // 公用的切点，该类下所有方法
     @Pointcut("execution(* com.kobe.controller..*.*(..))")
     public void log() {
-        log.info("调用 log() ");
+
     }
 
     // 使用log函数定义的 execution，不执行log()方法
@@ -45,8 +45,8 @@ public class Aop1 {
 
 
     @Around(value = "log()")
-    public Object doAroundAdvice(ProceedingJoinPoint proceedingJoinPoint){
-        log.info("环绕通知的目标方法名："+proceedingJoinPoint.getSignature().getName());
+    public Object doAroundAdvice(ProceedingJoinPoint proceedingJoinPoint) {
+        log.info("环绕通知的目标方法名：" + proceedingJoinPoint.getSignature().getName());
         try {
             Object obj = proceedingJoinPoint.proceed();
             return obj;
