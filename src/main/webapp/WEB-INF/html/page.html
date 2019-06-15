@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>ibootstrap - Bootstrap可视化布局系统</title>
+    <meta name="keywords" content="bootstrap,ibootstrap,爱bootstrap,可视化,操作,布局" />
+    <meta name="description" content="LayoutIt! 可拖放排序在线编辑的Bootstrap可视化布局系统" />
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://ibootstrap-file.b0.upaiyun.com/www.layoutit.com/img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://ibootstrap-file.b0.upaiyun.com/www.layoutit.com/img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://ibootstrap-file.b0.upaiyun.com/www.layoutit.com/img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="http://ibootstrap-file.b0.upaiyun.com/www.layoutit.com/img/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="http://ibootstrap-file.b0.upaiyun.com/www.layoutit.com/img/favicon.png">
+
+    <script type="text/javascript" src="/js/jquery/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="http://ibootstrap-file.b0.upaiyun.com/www.layoutit.com/js/jquery.htmlClean.js"></script>
+    <script type="text/javascript" src="http://ibootstrap-file.b0.upaiyun.com/www.layoutit.com/js/builder/v3/scripts.min.js"></script>
+</head>
+<body>
+<div>
+    <input type="checkbox" name="category" value="今日话题">今日话题
+    <input type="checkbox" name="category" value="视觉焦点">视觉焦点
+    <input type="checkbox" name="category" value="财经">财经
+    <input type="checkbox" name="category" value="汽车"/>汽车
+    <input type="checkbox" name="category" value="科技">科技
+    <input type="checkbox" name="category" value="房产">房产
+    <input type="checkbox" name="category" value="旅游">旅游
+    <input type="button" value="选择" id="rel"/>
+    <input value="修改" type="button" onclick="toEdit()">
+    <a href='javascript:toEdit(0);' link='/UserRelMan/index'>修改</a>
+
+</div>
+</body>
+<script type="text/javascript">
+    $(function () {
+        console.log("进入初始化方法");
+        var r=$("#rel");
+        console.log(r);
+        $("#rel").click(function () {
+            console.log("进入绑定方法");
+            var arr = [];
+            $.each($('input:checkbox:checked'), function () {
+                console.log("进入循环");
+                arr.push($(this).val());
+            });
+            console.log(arr.length);
+            console.log(arr)
+            if (arr.length == 0) {
+                alert("至少选择一个");
+                return;
+            }
+            var flag = confirm("数量为：" + $('input[type=checkbox]:checked').length + "个的用户进行人工审核");
+            if (flag == true) {
+                //请求后台接口
+                console.log(arr);
+                var request = {ids: arr};
+                console.log(request);
+                console.log(request.ids);
+                var stringify = JSON.stringify(request);
+                var stringify2 = JSON.stringify(arr);
+                $.ajax({
+                    contentType: 'application/json',
+                    url: "/test",
+                    type: "post",
+                    async: false,
+                    data: stringify2,
+                    success: function (resp) {
+                        console.log(resp);
+                        alert(resp.message);
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+</html>
