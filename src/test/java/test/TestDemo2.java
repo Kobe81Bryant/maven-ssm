@@ -4,8 +4,14 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.junit.Test;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestDemo2 {
     @Test
@@ -63,5 +69,16 @@ public class TestDemo2 {
             }
         }
         return arr;
+    }
+
+    @Test
+    public void test6(){
+        SimpleClientHttpRequestFactory factory=new SimpleClientHttpRequestFactory();
+        factory.setProxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888)));
+        RestTemplate restTemplate = new RestTemplate();
+
+        restTemplate.setRequestFactory(factory);
+
+
     }
 }

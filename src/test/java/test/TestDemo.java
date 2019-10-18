@@ -5,7 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kobe.entity.SkuNotice;
+import com.kobe.entity.User;
 import com.kobe.entity.UserEntity;
+import com.kobe.mapper.UserMapper;
 import com.kobe.service.FileService;
 import com.kobe.utils.ESUtil;
 import lombok.extern.log4j.Log4j2;
@@ -44,6 +46,29 @@ import java.util.stream.Collectors;
 @ContextConfiguration(locations = {"classpath:/spring/applicationContext-*.xml"})
 @Log4j2
 public class TestDemo {
+
+    @Autowired
+    private UserMapper userMapper;
+    @Test
+    public void mybatistest(){
+        System.out.println("1111111111111111");
+        List<User> users = userMapper.selectByExample(null);
+        log.info("xxxxx");
+        log.info(JSON.toJSONString(users));
+        users = userMapper.selectByExample(null);
+        log.info(JSON.toJSONString(users));
+        long l = System.currentTimeMillis();
+        for (int i=0;i<1000000;i++){
+            User user=new User();
+            user.setBirthday(new Date());
+            user.setName(String.valueOf(i));
+            user.setSex("n");
+            userMapper.insertSelective(user);
+        }
+        long l1 = System.currentTimeMillis();
+        System.out.println("共消耗"+(l1-l)/1000+"秒");
+    }
+
     //    @Autowired
 //    private FileService fileService;
     @Test
@@ -119,8 +144,8 @@ public class TestDemo {
         System.out.println(aClass);
     }
 
-    @Autowired
-    private TransportClient client;
+//    @Autowired
+//    private TransportClient client;
 
     @Test
     public void ESTest1() throws UnknownHostException {
@@ -138,17 +163,17 @@ public class TestDemo {
 //        response = client.prepareSearch("jingtiao").setTypes("effective_orders")
 //                .setQuery(QueryBuilders.boolQuery().filter(submitDatetime).filter(commissionPin)).setSize(0).execute().actionGet();
 //        System.out.println(JSON.toJSONString(response));
-        SearchResponse response = client.prepareSearch("jingtiao").setTypes("effective_orders")
-                .setQuery(QueryBuilders.boolQuery().filter(submitDatetime).filter(commissionPin))
-                .execute().actionGet();
-        SearchHits hits = response.getHits();
-        System.out.println(hits);
-        for (SearchHit hit : hits) {
-            System.out.println(log);
-            String id = hit.getId();
-            System.out.println(id);
-            System.out.println(hit.getSourceAsMap());
-        }
+//        SearchResponse response = client.prepareSearch("jingtiao").setTypes("effective_orders")
+//                .setQuery(QueryBuilders.boolQuery().filter(submitDatetime).filter(commissionPin))
+//                .execute().actionGet();
+//        SearchHits hits = response.getHits();
+//        System.out.println(hits);
+//        for (SearchHit hit : hits) {
+//            System.out.println(log);
+//            String id = hit.getId();
+//            System.out.println(id);
+//            System.out.println(hit.getSourceAsMap());
+//        }
     }
 
     @Test
