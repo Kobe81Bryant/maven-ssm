@@ -1,5 +1,8 @@
 package com.kobe.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.kobe.entity.User;
+import com.kobe.mapper.UserMapper;
 import com.kobe.service.FileService;
 import com.kobe.vo.Response;
 import com.qiniu.common.Zone;
@@ -49,17 +52,34 @@ public class FileController {
 
     @PostMapping("/excelUpload")
     @ApiOperation(value = "excel上传")
-    public Response getUserList(@RequestParam MultipartFile file) throws Exception {
-        Response response = new Response();
+    public void getUserList(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
         Workbook workbook = WorkbookFactory.create(inputStream);
-        Sheet sheetAt = workbook.getSheetAt(0);
-        Row row = sheetAt.getRow(1);
-        Cell cell = row.getCell(10);
-        int cellType = cell.getCellType();
-        Date dateCellValue = cell.getDateCellValue();
+        Sheet sheetAt = workbook.getSheetAt(1);
+        int lastRowNum = sheetAt.getLastRowNum();
+        String s="";
+        for (int i=1;i<=lastRowNum;i++){
+            Row row = sheetAt.getRow(i);
+            //INSERT INTO czj2019_plan_gift_test (id, planid, cardtype, cardtypename, totalamount, displayno, gifttype, inserttimeforhis, operatetimeforhis) VALUES
+            // (seq_czj2019_plan_gift.nextval, 10000000000103, '1208', '易修车 499元特惠价壳牌全合成保养套餐', 1000, 1, '0',current, current);
+            double numericCellValue = row.getCell(6).getNumericCellValue();
+            long id = new Double(numericCellValue).longValue();
+            String cartType = row.getCell(2).getStringCellValue();
+            String name = row.getCell(0).getStringCellValue();
+            double numericCellValue1 = row.getCell(1).getNumericCellValue();
+            long num = new Double(numericCellValue1).longValue();
+            double numericCellValue2 = row.getCell(7).getNumericCellValue();
+            long displayNo = new Double(numericCellValue2).longValue();
+            String s1 = row.getCell(8).getStringCellValue();
+            String type =s1.equalsIgnoreCase("电子类")?"0":"1";
 
-        return response;
+            String sql="INSERT INTO czj2019_plan_gift (id, planid, cardtype, cardtypename, totalamount, displayno, gifttype, inserttimeforhis, operatetimeforhis) VALUES " +
+                    "(seq_czj2019_plan_gift.nextval,"+id+",'"+cartType+"',"+"'"+name+"',"+num+","+displayNo+",'"+type+"',"+"current, current);";
+            //System.out.println("======"+i);
+            System.out.println(sql);
+        }
+
+        //response.setData(s);
     }
 
     @PostMapping("/test")
@@ -82,6 +102,17 @@ public class FileController {
     public Response test2(){
         Response response = new Response();
         log.info("asdasdasdas");
+        return response;
+    }
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @PostMapping("/testmybatis")
+    @ApiOperation(value = "测试mybatis")
+    public Response testmybatis(){
+        Response response = new Response();
+        fileService.testMybatis();
         return response;
     }
 
