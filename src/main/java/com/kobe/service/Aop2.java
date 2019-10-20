@@ -80,7 +80,7 @@ public class Aop2 {
 
             return obj;
         } catch (Throwable throwable) {
-            return "asd";
+            return null;
         }
 
     }
