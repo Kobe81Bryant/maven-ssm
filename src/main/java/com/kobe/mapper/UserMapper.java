@@ -1,5 +1,6 @@
 package com.kobe.mapper;
 
+import com.kobe.annotation.DaoCache;
 import com.kobe.entity.User;
 import com.kobe.entity.UserExample;
 import org.apache.ibatis.annotations.Param;
@@ -41,6 +42,7 @@ public interface UserMapper {
      *
      * @mbggenerated 2019-10-10
      */
+    @DaoCache(cacheKey = "asd")
     List<User> selectByExample(UserExample example);
 
     /**

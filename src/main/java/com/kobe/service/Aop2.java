@@ -1,6 +1,8 @@
 package com.kobe.service;
 
+import com.alibaba.fastjson.JSON;
 import com.kobe.annotation.DaoCache;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.aspectj.lang.JoinPoint;
@@ -19,10 +21,10 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @Order(2)
-@Slf4j
+@Log4j2
 public class Aop2 {
     // 公用的切点，该类下所有方法
-    @Pointcut("execution(* com.kobe.mapper..*.*(..))")
+    @Pointcut("execution(* com.kobe..*.*(..))")
     public void log() {
 
     }
@@ -32,13 +34,13 @@ public class Aop2 {
     public void doBefore(JoinPoint joinPoint) {
         log.info("切mybatis");
         log.info("调用 doBefore");
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        //ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         log.info("获取 request");
-        HttpServletRequest request = attributes.getRequest();
+        //HttpServletRequest request = attributes.getRequest();
         log.info("获取 reponse");
-        attributes.getResponse();
+        //attributes.getResponse();
         log.info("获取 session");
-        attributes.getRequest().getSession();
+        //attributes.getRequest().getSession();
         log.info("获取 class:" + joinPoint.getSignature().getDeclaringTypeName().toString());
         log.info("获取 args:" + joinPoint.getArgs());
     }
@@ -46,7 +48,7 @@ public class Aop2 {
     // 获取返回值
     @AfterReturning(pointcut = "log()", returning = "object")
     public void doAfterReturning(Object object) {
-        log.info("获取返回值" + object.toString());
+        log.info("获取返回值" + JSON.toJSONString(object));
     }
 
 
