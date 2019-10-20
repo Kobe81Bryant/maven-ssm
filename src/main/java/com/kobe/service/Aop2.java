@@ -12,6 +12,7 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -65,9 +66,11 @@ public class Aop2 {
             Object target = proceedingJoinPoint.getTarget();
             //Method currentMethod = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
             Method method=target.getClass().getMethod(methodSignature.getName(),methodSignature.getParameterTypes());
-            //Method accessibleMethod = MethodUtils.getAccessibleMethod(proceedingJoinPoint.getTarget().getClass(), methodSignature.getName(), proceedingJoinPoint.getArgs().getClass());
+            Method accessibleMethod = MethodUtils.getAccessibleMethod(proceedingJoinPoint.getTarget().getClass(), methodSignature.getName(), proceedingJoinPoint.getArgs().getClass());
             DaoCache annotation = method.getAnnotation(DaoCache.class);
             DaoCache annotation1 = method.getClass().getAnnotation(DaoCache.class);
+
+            DaoCache annotation3 = method.getAnnotation(DaoCache.class);
 
             Signature s = proceedingJoinPoint.getSignature();
             MethodSignature ms = (MethodSignature)s;
@@ -75,6 +78,7 @@ public class Aop2 {
 
             DaoCache annotation2 = m.getAnnotation(DaoCache.class);
 
+            Transactional annotation4 = m.getAnnotation(Transactional.class);
 
             Object obj = proceedingJoinPoint.proceed();
 
