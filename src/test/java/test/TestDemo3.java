@@ -54,6 +54,7 @@ public class TestDemo3 {
     public void test4() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection("", "", "");
+        conn.setAutoCommit(false);
         Statement statement = conn.createStatement();
         boolean execute = statement.execute("");
         conn.commit();
