@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<div id="app">
+    {{parentMsg}}
+    <input @click="fn" type="button" value="修改"></input>
+    <handsome :m="parentMsg" @childopt="things">
+
+    </handsome>
+</div>
+</body>
+<script>
+    Vue.component('handsome',
+        {
+            props: ['m'],
+            template: '<div>子组件的信息：{{sonmsg}} 父组件的信息：{{m}} <button @click="morething">子修改</button></div>',
+            data: function () {
+                return {
+                    sonmsg: "oooo"
+                };
+            },
+            methods: {
+                morething: function () {
+                    this.$emit('childopt', 'xxxxxxxxxxxxxxxxx');
+                }
+            }
+        });
+    var vm = new Vue(
+        {
+            el: '#app',
+            data: function () {
+                return {
+                    parentMsg: 'aasdsd'
+                }
+            },
+            methods: {
+                fn: function () {
+                    this.parentMsg = '666';
+                },
+                things: function (val) {
+                    this.parentMsg = val;
+                }
+            }
+        }
+    );
+</script>
+</html>

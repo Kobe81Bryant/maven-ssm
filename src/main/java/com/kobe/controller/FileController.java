@@ -1,6 +1,8 @@
 package com.kobe.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.kobe.entity.User;
 import com.kobe.mapper.UserMapper;
 import com.kobe.service.FileService;
@@ -20,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStream;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -55,28 +59,31 @@ public class FileController {
     public void getUserList(@RequestParam MultipartFile file) throws Exception {
         InputStream inputStream = file.getInputStream();
         Workbook workbook = WorkbookFactory.create(inputStream);
-        Sheet sheetAt = workbook.getSheetAt(1);
+        Sheet sheetAt = workbook.getSheetAt(0);
         int lastRowNum = sheetAt.getLastRowNum();
-        String s="";
+        SimpleDateFormat fromFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat toFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String sql ="update ldzh_dzm set invaliddate={0}, validdate={1} where giftbuyid={2} and cardtype={3};";
         for (int i=1;i<=lastRowNum;i++){
             Row row = sheetAt.getRow(i);
-            //INSERT INTO czj2019_plan_gift_test (id, planid, cardtype, cardtypename, totalamount, displayno, gifttype, inserttimeforhis, operatetimeforhis) VALUES
-            // (seq_czj2019_plan_gift.nextval, 10000000000103, '1208', '易修车 499元特惠价壳牌全合成保养套餐', 1000, 1, '0',current, current);
-            double numericCellValue = row.getCell(6).getNumericCellValue();
-            long id = new Double(numericCellValue).longValue();
-            String cartType = row.getCell(2).getStringCellValue();
-            String name = row.getCell(0).getStringCellValue();
-            double numericCellValue1 = row.getCell(1).getNumericCellValue();
-            long num = new Double(numericCellValue1).longValue();
-            double numericCellValue2 = row.getCell(7).getNumericCellValue();
-            long displayNo = new Double(numericCellValue2).longValue();
-            String s1 = row.getCell(8).getStringCellValue();
-            String type =s1.equalsIgnoreCase("电子类")?"0":"1";
+            if (row==null){
+                break;
+            }
+            Cell cell = row.getCell(0);
+            if (cell==null){
+                break;
+            }
+            String s1 = row.getCell(0).getRichStringCellValue().getString();
+            String s2 = row.getCell(2).getRichStringCellValue().getString();
+            String s3 = row.getCell(5).getRichStringCellValue().getString();
+            String s4 = row.getCell(6).getRichStringCellValue().getString();
+            String p1 = s1;
+            String p2 = "'"+s2+"'";
+            String p3 ="'"+toFormat.format(fromFormat.parse(s3))+"'";
+            String p4 ="'"+toFormat.format(fromFormat.parse(s4))+"'";
 
-            String sql="INSERT INTO czj2019_plan_gift (id, planid, cardtype, cardtypename, totalamount, displayno, gifttype, inserttimeforhis, operatetimeforhis) VALUES " +
-                    "(seq_czj2019_plan_gift.nextval,"+id+",'"+cartType+"',"+"'"+name+"',"+num+","+displayNo+",'"+type+"',"+"current, current);";
-            //System.out.println("======"+i);
-            System.out.println(sql);
+            String format = MessageFormat.format(sql, p3, p4, p1, p2);
+            System.out.println(format);
         }
 
         //response.setData(s);
@@ -114,6 +121,16 @@ public class FileController {
         Response response = new Response();
         fileService.testMybatis();
         return response;
+    }
+
+    @PostMapping("/testPage")
+    @ApiOperation(value = "测试分页")
+    public PageInfo<User> getUseBypage(@RequestParam(defaultValue = "1") Integer pageNum,
+                                       @RequestParam(defaultValue = "5") Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<User> users = userMapper.selectByExample(null);
+        PageInfo<User> userPageInfo = new PageInfo<>(users);
+        return userPageInfo;
     }
 
 }

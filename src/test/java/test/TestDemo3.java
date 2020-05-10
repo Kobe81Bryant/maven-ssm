@@ -26,11 +26,10 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
 import javax.management.Query;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.math.BigDecimal;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -147,11 +146,11 @@ public class TestDemo3 {
         restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
         HttpHeaders headers = new HttpHeaders();
         //发送请求
-        String url = "http://127.0.0.1:8080/fileserver/download?sys_name="+sys_name
-                +"&sys_secret="+ sys_secret
-                +"&req_id="+req_id
-                +"&sign="+sign
-                +"&resource_id="+resource_id;
+        String url = "http://127.0.0.1:8080/fileserver/download?sys_name=" + sys_name
+                + "&sys_secret=" + sys_secret
+                + "&req_id=" + req_id
+                + "&sign=" + sign
+                + "&resource_id=" + resource_id;
         ResponseEntity<byte[]> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
@@ -166,16 +165,16 @@ public class TestDemo3 {
     }
 
     @Test
-    public void test6(){
+    public void test6() {
         SkuNotice skuNotice1 = new SkuNotice();
         SkuNotice skuNotice2 = new SkuNotice();
-        BeanUtils.copyProperties(skuNotice1,skuNotice2,"aaa","aaa");
+        BeanUtils.copyProperties(skuNotice1, skuNotice2, "aaa", "aaa");
 
     }
 
     @Test
-    public void test7(){
-        String str ="CW277eab760e3e28d465ea78098c2c1ee67000113092719911215271118701100183京X1234510000000000012";
+    public void test7() {
+        String str = "CW277eab760e3e28d465ea78098c2c1ee67000113092719911215271118701100183京X1234510000000000012";
         System.out.println(str.length());
     }
 
@@ -190,7 +189,7 @@ public class TestDemo3 {
     }
 
     @Test
-    public void test9(){
+    public void test9() {
         System.out.println(maskCode("1234567"));
         System.out.println(maskCode("12345678"));
         System.out.println(maskCode("123456789"));
@@ -202,26 +201,26 @@ public class TestDemo3 {
 
     //处理7到20位数据
     //保留头部和尾部
-    private String maskCode(String code){
+    private String maskCode(String code) {
         //处理7到20位数据
         //保留头部和尾部
-        if (code==null){
+        if (code == null) {
             return null;
         }
-        if (code.length()<7){
+        if (code.length() < 7) {
             return code;
         }
-        if (code.length()<=8){
-            return code.substring(0,3)+"**"+code.substring(5,code.length());
+        if (code.length() <= 8) {
+            return code.substring(0, 3) + "**" + code.substring(5, code.length());
         }
-        if (code.length()>8){
-            return code.substring(0,3)+"***"+code.substring(6,code.length());
+        if (code.length() > 8) {
+            return code.substring(0, 3) + "***" + code.substring(6, code.length());
         }
         return null;
     }
 
 
-    private void fake(){
+    private void fake() {
         /**
          * 上线前提条件：
          * 运营人员正确设置是否使有有效期
@@ -241,6 +240,64 @@ public class TestDemo3 {
 
     @Test
     public void test10() throws Exception {
+        String formatStr = "yyyy-MM-dd";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal1 = Calendar.getInstance();
+        /*cal1.set(Calendar.YEAR, 2020);
+        cal1.set(Calendar.MONTH, 3);
+        cal1.set(Calendar.DAY_OF_MONTH, 14);*/
+        cal1.setTime(new Date());
+        cal1.add(Calendar.DAY_OF_MONTH, -1);
+        cal1.add(Calendar.DAY_OF_YEAR, -1);
 
+        Date date = cal1.getTime(); //获取昨天日期
+        System.out.println(format.format(date));
+    }
+
+
+    @Test
+    public void test11() {
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+        List<String> list = new ArrayList<String>();
+        //list.add("2011-12-01 2011-12-06");
+//        list.add("2011-12-2 2011-12-4");
+//        list.add("2011-12-4 2011-12-7");
+        list.add("2020-04-01 2020-04-15");
+        list.add("2020-04-02 2020-04-15");
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                String d1[] = list.get(i).split(" ");
+                Date startdate1 = formater.parse(d1[0]);
+                Date enddate1 = formater.parse(d1[1]);
+                for (int j = i + 1; j < list.size(); j++) {
+                    String d2[] = list.get(j).split(" ");
+                    Date startdate2 = formater.parse(d2[0]);
+                    Date enddate2 = formater.parse(d2[1]);
+                    if (!startdate2.before(startdate1)) {
+                        if (!startdate2.after(enddate1)) {
+                            System.out.println("第"+(i+1)+"条数据"+list.get(i) + "与第" +(j+1)+"条数据"+ list.get(j) + "重合;");
+                        }
+                    } else if (!enddate2.before(startdate1)) {
+                        System.out.println("第"+(i+1)+"条数据"+list.get(i) + "与第" +(j+1)+"条数据"+ list.get(j) + "重合;");
+                    }
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test12(){
+        BigDecimal b1 = new BigDecimal("0");
+        BigDecimal b2 = new BigDecimal("2");
+        System.out.println(b1.compareTo(BigDecimal.ZERO));
+    }
+
+    @Test
+    public void test13() throws FileNotFoundException {
+        String filename = "D:\\Projects\\ComProjects\\ldzhapp_repos\\ldzhapp//dzmfile//158788474177892902.xlsx";
+        File file = new File(filename);
+        FileOutputStream fileOut = new FileOutputStream(file);
     }
 }
